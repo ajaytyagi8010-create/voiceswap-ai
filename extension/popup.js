@@ -1,5 +1,5 @@
 // ========== CONFIG ==========
-const BACKEND_URL = 'https://YOUR_VERCEL_APP.vercel.app';
+const BACKEND_URL = 'https://voiceswap-ai-ten.vercel.app';
 
 // ========== GLOBAL STATE ==========
 let currentVideoId = null;
