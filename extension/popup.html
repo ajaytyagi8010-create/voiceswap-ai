@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { 
+      width: 350px; 
+      font-family: 'Segoe UI', sans-serif; 
+      background: #0f0f23;
+      color: white;
+    }
+    .header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 20px;
+      text-align: center;
+    }
+    .header h1 { font-size: 20px; }
+    .header p { font-size: 12px; opacity: 0.8; margin-top: 5px; }
+    .container { padding: 20px; }
+    .section {
+      background: #1a1a2e;
+      border-radius: 12px;
+      padding: 15px;
+      margin-bottom: 15px;
+    }
+    .section h3 {
+      color: #667eea;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+    select, button {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: none;
+      margin-top: 8px;
+      font-size: 14px;
+    }
+    select {
+      background: #16213e;
+      color: white;
+    }
+    button {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+      transition: transform 0.2s;
+    }
+    button:hover { transform: scale(1.02); }
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    #status {
+      text-align: center;
+      padding: 15px;
+      font-size: 13px;
+      min-height: 50px;
+    }
+    .loading { color: #ffd700; }
+    .success { color: #00ff88; }
+    .error { color: #ff4757; }
+    #audioPlayer {
+      width: 100%;
+      margin-top: 10px;
+      display: none;
+    }
+    .hidden { display: none; }
+    .video-info {
+      background: #16213e;
+      padding: 10px;
+      border-radius: 8px;
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+    .tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+    .tab {
+      flex: 1;
+      padding: 10px;
+      background: #16213e;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
+    }
+    .tab.active {
+      background: #667eea;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>🎙️ VoiceSwap AI</h1>
+    <p>100% FREE Video Translator</p>
+  </div>
+  
+  <div class="container">
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab active" onclick="switchTab('youtube')">YouTube</button>
+      <button class="tab" onclick="switchTab('local')">Local Video</button>
+    </div>
+
+    <!-- YouTube Section -->
+    <div id="youtubeSection" class="section">
+      <h3>📺 YouTube Video</h3>
+      <div class="video-info" id="videoInfo">
+        Open any YouTube video...
+      </div>
+    </div>
+
+    <!-- Local Video Section -->
+    <div id="localSection" class="section hidden">
+      <h3>📁 Local Video File</h3>
+      <input type="file" id="videoFile" accept="video/*" style="display:none;">
+      <button onclick="document.getElementById('videoFile').click()">
+        Choose Video File
+      </button>
+      <p id="fileName" style="font-size:12px; margin-top:8px; color:#888;"></p>
+    </div>
+
+    <!-- Language Selection -->
+    <div class="section">
+      <h3>🌍 Translate To</h3>
+      <select id="targetLang">
+        <option value="hi">🇮🇳 Hindi</option>
+        <option value="en">🇺🇸 English</option>
+        <option value="es">🇪🇸 Spanish</option>
+        <option value="fr">🇫🇷 French</option>
+        <option value="de">🇩🇪 German</option>
+        <option value="ja">🇯🇵 Japanese</option>
+        <option value="ko">🇰🇷 Korean</option>
+        <option value="ta">🇮🇳 Tamil</option>
+        <option value="te">🇮🇳 Telugu</option>
+        <option value="bn">🇮🇳 Bengali</option>
+        <option value="ur">🇵🇰 Urdu</option>
+        <option value="ar">🇸🇦 Arabic</option>
+        <option value="ru">🇷🇺 Russian</option>
+        <option value="pt">🇧🇷 Portuguese</option>
+      </select>
+    </div>
+
+    <!-- Voice Style -->
+    <div class="section">
+      <h3>🎭 Voice Style</h3>
+      <select id="voiceStyle">
+        <option value="natural">Natural AI Voice (Free)</option>
+        <option value="male">Male Voice</option>
+        <option value="female">Female Voice</option>
+      </select>
+    </div>
+
+    <!-- Action Button -->
+    <button id="translateBtn" onclick="startTranslation()">
+      ✨ Start Translation
+    </button>
+
+    <!-- Status -->
+    <div id="status">Ready to translate! 🚀</div>
+
+    <!-- Audio Player -->
+    <audio id="audioPlayer" controls></audio>
+    
+    <!-- Download Button -->
+    <button id="downloadBtn" class="hidden" onclick="downloadAudio()">
+      ⬇️ Download Audio
+    </button>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
